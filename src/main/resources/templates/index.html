@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Mini Twitter</title>
+        <link rel="stylesheet" th:href="@{/styles.css}">
+    </head>
+    <body>
+        <div class="container" th:each="user: ${users} ">
+            <h1 class="title">Mini Twitter</h1>
+            <div class="user">
+                <img class="user-photo" th:src="${user.profilePhoto}">
+                <span class="username" th:text="${user.userName}"></span>
+            </div>
+            <div class="main">
+                <div class="new-tweet">
+                    <form th:action="@{/addpost}" method="post">
+                        <textarea name="" rows="5" th:placeholder="'What\'s happening, ' + ${user.userName} + '?'"></textarea>
+                        <button type="submit">Tweet</button>
+                    </form>
+                </div>
+                <div class="tweet-list">
+                    <div class="tweet" th:each="post : ${posts}">
+                        <div class="tweet-user">
+                            <img class="tweet-user-photo" th:src="@{${post.user.profilePhoto}}">
+                            <span class="tweet-username" th:text="${post.user.userName}"></span>
+                        </div>
+                        <div class="tweet-content">
+                            <p th:text="${post.postDescription}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
